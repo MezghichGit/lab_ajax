@@ -1,0 +1,81 @@
+<html>
+<head>
+<script language="javascript">
+function verifier()
+{
+var login= document.f1.login.value;
+alert(login);
+      if (window.XMLHttpRequest)    //  Objet standard
+		{ 
+			xhr = new XMLHttpRequest();     //  Firefox,
+		} 
+		else  if (window.ActiveXObject)      //  Internet
+		{
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		
+		
+		
+		xhr.onreadystatechange = function()
+		{ 
+		if ((xhr.readyState == 4 ) && (xhr.status == 200) )
+			{
+			
+			if(xhr.responseText == 1)
+			{
+			
+			document.f1.mypic.src = "notok.jpg";
+			alert("Login invalide!");
+			}
+			if(xhr.responseText == 0)
+			{
+			document.f1.mypic.src = "ok.jpg";
+			alert("Login valide!");
+			}
+			}
+			
+		};
+		xhr.open('GET', 'verification.php?login='+login, true); 
+		xhr.send(null);
+}
+
+</script>
+</head>
+<body>
+
+<form name="f1">
+
+	<table>
+	<tr>
+		<td>
+		Nom
+		</td>
+		<td>
+		<input type="text" name="nom"/>
+		</td>		
+	</tr>
+	<tr>
+		<td>
+		Prenom
+		</td>
+		<td>
+		<input type="text" name="prenom"/>
+		</td>		
+	</tr>
+	<tr>
+		<td>
+		Login
+		</td>
+		<td>
+		<input type="text" name="login" onchange="verifier()"/>
+		</td>
+		<td>
+		<img src="ok.jpg" width="25" height="25" name="mypic"/>
+		</td>
+	</tr>
+	</table>
+</form>
+
+</body>
+
+</html>
