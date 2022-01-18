@@ -2,6 +2,8 @@
 
 // $login est une variable php qui contient la valeur login envoyer par ajax au serveur
 $login = $_GET['login'];
+//echo $login;
+
 
 // connexion via php à mysql
 $servername = "localhost";
@@ -9,20 +11,16 @@ $username = "root";
 $password = "";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$mysqli = new mysqli("localhost", $username, $password, "isika2022");
 
 // Check connection
-if ($conn->connect_error) {
+if ($mysqli->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-// selection de la base de données
-mysqli_select_db($conn,'isika2022');
+
+$result = $mysqli->query("SELECT * FROM user where login='".$login."'"); 
+echo $result->num_rows;
 
 
-
-$requette="SELECT * FROM user where login='".$login."'" ;
-$data = mysqli_query($requette);
-$m = mysqli_num_rows($data);
-echo $m;
 ?>
